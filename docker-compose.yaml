@@ -1,0 +1,41 @@
+version: '3.8'
+
+networks:
+  backend:
+    name: backend
+    driver: bridge
+
+services:
+  app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    image: my-app/app
+    ports:
+      - 3000:3000
+    networks:
+      - backend
+    env_file:
+      - ./.env
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - /data/mysql:/data/mysql
+    environment:
+      MYSQL_ROOT_USERNAME: root
+      MYSQL_ROOT_PASSWORD: pwroot
+    networks:
+      - backend
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    # environment:
+    #   - PMA_ARBITRARY=1
+    networks:
+      - backend
