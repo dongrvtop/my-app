@@ -6,17 +6,17 @@ networks:
     driver: bridge
 
 services:
-  app:
-    build: 
-      context: ./
-      dockerfile: Dockerfile
-    image: my-app/app
-    ports:
-      - 3000:3000
-    networks:
-      - backend
-    env_file:
-      - ./.env
+  # app:
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   image: my-app/app
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - backend
+  #   env_file:
+  #     - ./.env
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
